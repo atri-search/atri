@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.idea/
+.vscode/
+venv/
+.venv/
+.env
+.mup/
+.pytest_cache/
+.test/
+.coverage
+# Distribution / packaging
+pipfile
+pipfile.lock

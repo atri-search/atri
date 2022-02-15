@@ -1,0 +1,20 @@
+{
+  "internal_error": "Internal error occurred during this request.",
+  "generic_error": "Error occurred: {}",
+  "request_error": "The request doesn't contains some required values",
+
+  "file_uploaded": "File '{}' uploaded.",
+  "file_upload_error": "Error occurred during files upload: {}",
+  "file_removed": "File {} has been removed",
+  "multiple_file_uploaded": "A total of '{}' files was uploaded.",
+
+  "collection_deleted": "Collection '{}' deleted successfully",
+  "collection_saved": "Collection '{}' saved successfully",
+  "collection_error_creating": "Failed to save collection: {}.",
+  "collection_error_deleting": "Internal server error. Failed to delete collection.",
+  "collection_not_found": "Collection not found.",
+  "collection_indexed": "Collection indexed",
+  "collection_not_indexed": "Collection not indexed yet",
+
+   "question_not_provided": "Question not provided"
+}

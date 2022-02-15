@@ -1,0 +1,116 @@
+---
+defaults:
+    query: or
+    similarity: vector_space
+    aggregation: borda_count
+    tf: frequency
+    idf: inverse_frequency
+    fieldname: body
+    limit: 10
+
+
+index:
+    stored: false
+    vector: true
+    clean: false
+    graph: false
+    link_field: links
+
+metrics:
+    precision: atri.core.metrics.defaults.precision
+    recall: atri.core.metrics.defaults.recall
+    f1: atri.core.metrics.defaults.f1
+    ndcg: atri.core.metrics.ndcg.NDCG
+
+parsing:
+    .txt: atri.core.parsing.text.txt
+
+    .pdf: atri.core.parsing.pdf.pdf
+
+    .trec:
+        trec_disk_4_fr94: atri.core.parsing.trec.FR94
+        trec_disk_4_ft: atri.core.parsing.trec.FT
+        trec_disk_5_latimes: atri.core.parsing.trec.LATIMES
+        trec_disk_5_fbis: atri.core.parsing.trec.FBIS
+
+    .lisa: atri.core.parsing.small.LISA
+    .npl: atri.core.parsing.small.NPL
+    .cf: atri.core.parsing.small.CF
+
+multiquery:
+
+    .lisa: atri.core.parsing.small.LISA_QREL
+    .npl: atri.core.parsing.small.NPL_QREL
+    .cf: atri.core.parsing.small.CF_QREL
+
+similarities:
+
+    vector_space:
+        ref: whoosh.scoring.TF_IDF
+        required:
+            - tf
+            - idf
+        defaults:
+            tf: frequency
+            idf: inverse_frequency
+
+    boolean:
+        ref: whoosh.scoring.Boolean
+
+    probabilistic:
+        ref: whoosh.scoring.Probabilistic
+
+    bm25:
+        ref: whoosh.scoring.BM25F
+        required:
+            - b
+            - k1
+        defaults:
+            b: 0.75
+            k1: 1.2
+
+    belief_network:
+        ref: whoosh.scoring.BeliefNetwork
+        required:
+            - tf
+            - idf
+        defaults:
+            tf: frequency
+            idf: inverse_frequency
+
+    extended_boolean:
+        ref: whoosh.scoring.ExtendedBoolean
+        required:
+            - p
+        defaults:
+            p: 3.0
+
+    generalized_vector_space:
+        ref: whoosh.scoring.GeneralizedVSM
+        required:
+            - tf
+            - idf
+        defaults:
+            tf: frequency
+            idf: inverse_frequency
+
+    dfree:
+        ref: whoosh.scoring.DFree
+
+    pl2:
+        ref: whoosh.scoring.PL2
+        required:
+            - c
+        defaults:
+            c: 1.0
+
+    pagerank:
+        ref: atri.core.similarities.pagerank.PageRankBM25
+        required:
+            - alpha
+            - b
+            - k1
+        defaults:
+            alpha: 0.85
+            b: 0.75
+            k1: 1.2
