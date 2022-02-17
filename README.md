@@ -110,6 +110,11 @@ That is my personal roadmap written in PT-BR.
 |                              Testes TREC                              |         |           |       |       |   X  |       |
 |                           Escrita do artigo                           |         |           |       |       |   X  |   X   |
 
+Next: 3 telas
+- Integrations
+- Relevance Feedback
+- Reports
+
 <!-- CONTRIBUTING -->
 ## Contributing
 

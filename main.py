@@ -30,6 +30,7 @@ from atri.api import collection
 from atri.api import search
 from atri.api import index
 from atri.api import default
+from atri.api import evaluation
 
 app = FastAPI(
     title="ATRI",
@@ -45,3 +46,4 @@ app.include_router(collection.router)
 app.include_router(search.router)
 app.include_router(index.router)
 app.include_router(default.router)
+app.include_router(evaluation.router)

@@ -24,5 +24,45 @@
 # The views and conclusions contained in the software and documentation are
 # those of the authors and should not be interpreted as representing official
 # policies, either expressed or implied, of MARCOS PONTES.
+from typing import List
 
-__all__ = ['collection', 'strings', 'default', 'evaluation', 'index', 'search']
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
+
+from atri.manager import FileSystemError, SearchManager
+
+router = APIRouter(
+    prefix="/eval",
+    tags=["evaluation"],
+    responses={
+        404: {"description": "Not found"},
+        500: {"description": "Internal server error"},
+    }
+)
+
+
+class EvaluationModel(BaseModel):
+    metrics: List[str]
+    ground_truth: List[int]
+
+
+@router.post("/", status_code=200)
+def evaluation(evaluation_model: EvaluationModel):
+    """
+    Evaluation of the search engine.
+    :return: Evaluation object.
+    """
+    try:
+        response = {}
+
+        metrics = evaluation_model.metrics
+        ground_truth = evaluation_model.ground_truth
+
+        for metric in metrics:
+            response[metric] = SearchManager.evaluate(metric, ground_truth)
+
+        return response
+    except FileSystemError as e:
+        raise HTTPException(status_code=406, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

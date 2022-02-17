@@ -305,6 +305,14 @@ class SearchManager(object):
         return evaluation
 
     @classmethod
+    def evaluate(cls, metric, ground_truth, **kwargs):
+        """
+        Calculates  relevance metric given a ground_truth graded ranking.
+        """
+        metric_func, kwargs = cls.__metric_handle(metric, **kwargs)
+        return metric_func(ground_truth, **kwargs)
+
+    @classmethod
     def __metric_handle(cls, metric: str, **kwargs):
         """
         Get the metric handle function.

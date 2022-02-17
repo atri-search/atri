@@ -25,9 +25,10 @@
 # those of the authors and should not be interpreted as representing official
 # policies, either expressed or implied, of MARCOS PONTES.
 import json
+import datetime
 from typing import Optional, List, Dict, Any
 
-from fastapi import APIRouter, HTTPException, UploadFile, File, Form
+from fastapi import APIRouter, HTTPException, UploadFile, Form
 from pydantic import BaseModel
 
 from atri.manager import fs, FileSystemError, QueryManager
@@ -61,6 +62,7 @@ class HitsModel(BaseModel):
 
 class QueryResponseModel(BaseModel):
     hits: List[HitsModel]
+    time: float
 
 
 class MultiQueryResponseModel(BaseModel):
@@ -78,11 +80,18 @@ def search(collection_name: str, query: QueryModel):
     try:
         query_keywords = query.query
         advanced_query_parameters = query.advanced_options
+
+        start_time = datetime.datetime.now()
+
+        # search
         hits = fs.search_manager(collection_name).search(query_keywords, **advanced_query_parameters)
+
+        end_time = datetime.datetime.now()
+        time = (end_time - start_time).total_seconds() * 1000
 
         # extracting List[HitsModel] from List[dict]
         hits_model = get_hits_model(hits)
-        return QueryResponseModel(hits=hits_model)
+        return QueryResponseModel(hits=hits_model, time=time)
 
     except FileSystemError as e:
         raise HTTPException(status_code=406, detail=str(e))
@@ -148,30 +157,13 @@ async def __compose_query(collection_name: str, query_info: Dict[str, Any],
         adocs = fs.query_manager(file.filename, await file.read()).parse(False)
         keywords += QueryManager.keywords_query(adocs, query_info.get("fields", None))
 
+    start_time = datetime.datetime.now()
+
     hits = fs.search_manager(collection_name).search(keywords, **query_info)
+
+    end_time = datetime.datetime.now()
+    time = (end_time - start_time).total_seconds() * 1000
+
     # extracting List[HitsModel] from List[dict]
     hits_model = get_hits_model(hits)
-    return QueryResponseModel(hits=hits_model)
-
-
-@router.get("/evaluation", status_code=200)
-def evaluation(payload: Dict[str, Any]):
-    """
-    Evaluation of the search engine.
-    :return: Evaluation object.
-    """
-    try:
-        response = {}
-
-        metrics = payload.pop('metric', None)
-        ground_truth = payload.pop('ground_truth', [])
-
-        if isinstance(metrics, list):
-            for metric in metrics:
-                response[metric] = fs.metric(metric, ground_truth, **payload)
-        else:
-            response[metrics] = fs.metric(metrics, ground_truth, **payload)
-
-        return response
-    except FileSystemError as e:
-        raise HTTPException(status_code=406, detail=str(e))
+    return QueryResponseModel(hits=hits_model, time=time)
