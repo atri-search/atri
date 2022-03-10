@@ -68,6 +68,11 @@ class AIndexer(object):
         self.collection.force_load_docs()
         if clean:
             self.clean_index(graph, link_field)
+            # indexing the GVSM
+            from whoosh.minterm import index_minterms, extract_minterm
+            index_minterms("body", self._index)  # todo: flexibilidade
+            print(extract_minterm("artilheiro", 1))
+            # todo: multiplas coleções
         else:
             self.incremental_index()
 
@@ -121,7 +126,7 @@ class AIndexer(object):
                 pr.load_adjlist()
                 pr.load_graphml()
                 pr.generate_rank()
-                # path_adjlist_tmp.unlink(missing_ok=True)
+                path_adjlist_tmp.unlink(missing_ok=True)
 
     def reset(self):
         self._index = index.create_in(self.index_path, schema=self.get_schema())

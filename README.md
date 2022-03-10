@@ -102,11 +102,10 @@ That is my personal roadmap written in PT-BR.
 |            bugfix: Booleano Estendido com p=3 em multiquery           |    X    |           |       |       |      |       |
 |                  Parametrização Individual por Modelo                 |    X    |           |       |       |      |       |
 |        Tratar comportamentos estranhos  com parâmetros errados        |         |     X     |       |       |      |       |
-|                        Implementar modelo GVSM                        |         |     X     |       |       |      |       |
 |                   Interface de métricas de eficácia                   |         |           |   X   |       |      |       |
 |             Modelos de RI texto semi-estruturado  PageRank            |         |           |   X   |       |      |       |
+|                        Implementar modelo GVSM                        |         |     X     |       |       |      |       |
 |                         Expansão de Consultas                         |         |           |       |   X   |      |       |
-|                            Learning to Rank                           |         |           |       |   X   |      |       |
 |                              Testes TREC                              |         |           |       |       |   X  |       |
 |                           Escrita do artigo                           |         |           |       |       |   X  |   X   |
 
