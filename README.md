@@ -88,32 +88,6 @@ Currently, that is the interface of [Atri-UI](https://github.com/atri-search/atr
   <img src="static/images/results-page.png" alt="Logo" width="900">
 </a>
 
-
-
-
-
-## Roadmap
-
-That is my personal roadmap written in PT-BR.
-
-|                               Atividade                               | Janeiro | Fevereiro | Março | Abril | Maio | Junho |
-|:---------------------------------------------------------------------:|---------|-----------|-------|-------|------|-------|
-| bugfix: Multiquery: erros de estatísticas erradas                     |    X     |           |       |       |      |       |
-|            bugfix: Booleano Estendido com p=3 em multiquery           |    X    |           |       |       |      |       |
-|                  Parametrização Individual por Modelo                 |    X    |           |       |       |      |       |
-|        Tratar comportamentos estranhos  com parâmetros errados        |         |     X     |       |       |      |       |
-|                   Interface de métricas de eficácia                   |         |           |   X   |       |      |       |
-|             Modelos de RI texto semi-estruturado  PageRank            |         |           |   X   |       |      |       |
-|                        Implementar modelo GVSM                        |         |     X     |       |       |      |       |
-|                         Expansão de Consultas                         |         |           |       |   X   |      |       |
-|                              Testes TREC                              |         |           |       |       |   X  |       |
-|                           Escrita do artigo                           |         |           |       |       |   X  |   X   |
-
-Next: 3 telas
-- Integrations
-- Relevance Feedback
-- Reports
-
 <!-- CONTRIBUTING -->
 ## Contributing
 
